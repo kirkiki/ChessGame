@@ -20,7 +20,7 @@ public class PlateView {
 
         while (larg<_pl.Board().length){
             while (longe<_pl.Board().length){
-                System.out.print(_pl.Board()[larg][longe]);
+                System.out.print(_pl.Board()[larg][longe].Name()+_pl.Board()[larg][longe].Couleur()+" ");
                 longe++;
             }
             System.out.println();

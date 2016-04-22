@@ -6,9 +6,13 @@ public class Main {
         PlateController plate = new PlateController();
         PlayerController player1 = new PlayerController();
 
-        plate.affi();
+        //plate.affi();
         plate.setup();
         plate.affi();
+
+       // while (player1.isPlaying()){
+            plate.play();
+       // }
 
     }
 }

@@ -22,6 +22,7 @@ public  class Piece {
     public String Couleur() {
         return _couleur;
     }
+    public  void setCouleur(String couleur){_couleur=couleur;}
 
     public Position Position() {
         return _position;

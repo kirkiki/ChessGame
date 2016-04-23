@@ -10,7 +10,15 @@ public class Pawn extends Piece {
     @Override
     public boolean canMove(int ligneD, int colonneD, int ligneA, int colonneA) {
         //ajouter la condition mangerPion
-        return colonneD == colonneA && Math.abs(ligneA - ligneD) == 1;
+        if (this.getCouleur().equals("W"))
+            return colonneD == colonneA && ligneD - ligneA == 1;
+        else
+            return colonneD == colonneA && ligneA - ligneD == 1;
+    }
+
+    @Override
+    public boolean freeWay(int ligneD, int colonneD, int ligneA, int colonneA, Plate plate) {
+        return true;
     }
 }
 

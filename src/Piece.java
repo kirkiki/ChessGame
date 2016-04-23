@@ -16,6 +16,7 @@ public abstract class Piece {//a mettre en abstract
     public Piece(String name){_name=name;}
 
     public abstract boolean canMove(int ligneD, int colonneD, int ligneA, int colonneA);
+    public abstract boolean freeWay(int ligneD, int colonneD, int ligneA, int colonneA,Plate plate);
 
 
     public String Name() {

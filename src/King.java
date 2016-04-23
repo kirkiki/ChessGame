@@ -7,7 +7,6 @@ public class King extends Piece {
     }
 
 
-
     public King(String name) {
         super(name);
     }
@@ -15,5 +14,10 @@ public class King extends Piece {
     @Override
     public boolean canMove(int ligneD, int colonneD, int ligneA, int colonneA) {
         return !(Math.abs(ligneD - ligneA) != 1 || Math.abs(colonneA - colonneD) != 1);
+    }
+
+    @Override
+    public boolean freeWay(int ligneD, int colonneD, int ligneA, int colonneA, Plate plate) {
+        return !plate.Board()[ligneA][colonneA].getCouleur().equals(this.getCouleur());
     }
 }

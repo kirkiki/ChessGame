@@ -3,17 +3,16 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by ronan on 22/04/2016.
+ * Created by Ronan on 23/04.
  */
 public class PlateController {
 
     PlateView _pv;
     Plate plate;
-    ArrayList<Pawn> pawns = new ArrayList();
-    String colonneDepart;
-    String colonneArrivee;
-    String ligneDepart;
-    String ligneArrivee;
+    int colonneDepart;
+    int colonneArrivee;
+    int ligneDepart;
+    int ligneArrivee;
 
     public PlateController() {
         plate = new Plate();
@@ -21,57 +20,136 @@ public class PlateController {
     }
 
     public void play() {
-        //userInput();
-       // move();
+        //_pv.userInput();
+        /*colonneDepart = toTab("a");
+        ligneDepart = 2;
+        colonneArrivee = toTab("a");
+        ligneArrivee = 3;*/
+
+        if (canMove(plate.Board()[ligneDepart][colonneDepart])) {
+            move();
+        }
+        affi();
     }
+
+    private boolean canMove(Piece piece) {
+        switch (piece.Name()) {
+
+            case "P":
+
+            case "T":
+                if(piece.canMove(ligneDepart,colonneDepart,ligneArrivee,colonneArrivee))
+                    return true;
+                else {
+                    _pv.erreurMvt();
+                    return false;
+                }
+            case "B":
+                if(piece.canMove(ligneDepart,colonneDepart,ligneArrivee,colonneArrivee))
+                    return true;
+                else {
+                    _pv.erreurMvt();
+                    return false;
+                }
+            case "k":
+                if(piece.canMove(ligneDepart,colonneDepart,ligneArrivee,colonneArrivee))
+                    return true;
+                else {
+                    _pv.erreurMvt();
+                    return false;
+                }
+            case "K":
+                if(piece.canMove(ligneDepart,colonneDepart,ligneArrivee,colonneArrivee))
+                    return true;
+                else {
+                    _pv.erreurMvt();
+                    return false;
+                }
+            case "Q":
+                if(piece.canMove(ligneDepart,colonneDepart,ligneArrivee,colonneArrivee))
+                    return true;
+                else {
+                    _pv.erreurMvt();
+                    return false;
+                }
+            default:
+                _pv.erreurMvt();
+                return false;
+        }
+    }
+
+    private boolean roque() {
+        return true;
+    }
+
 
     public void move() {
+        Piece transition = plate.Board()[ligneArrivee][colonneArrivee];
+        plate.Board()[ligneArrivee][colonneArrivee] = plate.Board()[ligneDepart][colonneDepart];
+        plate.Board()[ligneDepart][colonneDepart] = transition;
 
     }
 
-    public void userInput() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Entrez une colonne de depart");
-        colonneDepart = sc.nextLine();
-        System.out.println("Entrez une ligne de depart ");
-        ligneDepart = sc.nextLine();
-        System.out.println("Entrez une colonne d'arrivée");
-        colonneArrivee = sc.nextLine();
-        System.out.println("Entrez une ligne d'arrivée ");
-        ligneArrivee = sc.nextLine();
+    public void getInput(String colonneD, int ligneD, String colonneA, int ligneA) {
+        ligneDepart = ligneD;
+        colonneDepart = toTab(colonneD);
+        ligneArrivee = ligneA;
+        colonneArrivee = toTab(colonneA);
     }
 
     public void setup() {
         placePawn();
-        place(plate.Tower(), 1, 7, plate.Tower().Name());
-        place(plate.Bishop(), 2, 5, plate.Bishop().Name());
-        place(plate.Knight(), 3, 3, plate.Knight().Name());
-        place(plate.King(), 4, 5, plate.King().Name());
-        place(plate.Queen(), 5, 4, plate.Queen().Name());
+        placeTower(1,7);
+        placeBishop(2,5);
+        placeKingsAndQueens();
+        placeKnight(3,3);
     }
 
-    public void place(Piece _piece, int debut, int fin, String name) {
+    public void placeTower (int x, int y){
         String currentColor = "B";
 
-        if (_piece == plate.Queen() || _piece == plate.King()) {
-            Queen queenB = new Queen(5, 1, "B");
-            Queen queenW = new Queen(4, 8, "W");
-            King kingB = new King(4, 1, "B");
-            King kingW = new King(5, 8, "W");
-            plate.Board()[queenB.Position().Y()][queenB.Position().X()] = queenB;
-            plate.Board()[queenW.Position().Y()][queenW.Position().X()] = queenW;
-            plate.Board()[kingB.Position().Y()][kingB.Position().X()] = kingB;
-            plate.Board()[kingW.Position().Y()][kingW.Position().X()] = kingW;
-        } else {
-            for (int var = 1; var < 9; var = var + 7) {
-                for (int i = debut; i < 9; i = i + fin) {
-                    Piece piece = new Piece(i, var, name, currentColor);
-                    plate.Board()[piece.Position().Y()][piece.Position().X()] = piece;
-                }
-                currentColor = "W";
+        for (int var = 1; var < 9; var = var + 7) {
+            for (int i = x; i < 9; i = i + y) {
+                Tower tower=new Tower(i,var,currentColor);
+                plate.Board()[tower.Position().Y()][tower.Position().X()] = tower;
             }
+            currentColor = "W";
         }
     }
+
+    public void placeBishop(int debut, int fin){
+        String currentColor = "B";
+
+        for (int var = 1; var < 9; var = var + 7) {
+            for (int i = debut; i < 9; i = i + fin) {
+                Bishop bishop = new Bishop(i, var, currentColor);
+                plate.Board()[bishop.Position().Y()][bishop.Position().X()] = bishop;
+            }
+            currentColor = "W";
+        }
+    }
+    public void placeKnight(int debut, int fin){
+        String currentColor = "B";
+
+        for (int var = 1; var < 9; var = var + 7) {
+            for (int i = debut; i < 9; i = i + fin) {
+                Knight knight=new Knight(i, var, currentColor);
+                plate.Board()[knight.Position().Y()][knight.Position().X()] = knight;
+            }
+            currentColor = "W";
+        }
+    }
+    public void placeKingsAndQueens(){
+        Queen queenB = new Queen(5, 1, "B");
+        Queen queenW = new Queen(4, 8, "W");
+        King kingB = new King(4, 1, "B");
+        King kingW = new King(5, 8, "W");
+        plate.Board()[queenB.Position().Y()][queenB.Position().X()] = queenB;
+        plate.Board()[queenW.Position().Y()][queenW.Position().X()] = queenW;
+        plate.Board()[kingB.Position().Y()][kingB.Position().X()] = kingB;
+        plate.Board()[kingW.Position().Y()][kingW.Position().X()] = kingW;
+    }
+
 
     public void placePawn() {
         int i = 1;
@@ -84,6 +162,29 @@ public class PlateController {
             }
             currentColor = "W";
             i = 1;
+        }
+    }
+
+    public int toTab(String entree) {
+        switch (entree) {
+            case "a":
+                return 1;
+            case "b":
+                return 2;
+            case "c":
+                return 3;
+            case "d":
+                return 4;
+            case "e":
+                return 5;
+            case "f":
+                return 6;
+            case "g":
+                return 7;
+            case "h":
+                return 8;
+            default:
+                return -1;
         }
     }
 

@@ -1,5 +1,5 @@
 /**
- * Created by ronan on 22/04/2016.
+ * Created by Ronan on 23/04.
  */
 public class Plate {
     private Tile dark=new Tile("  ");
@@ -58,5 +58,6 @@ public class Plate {
     public King King() {return king;}
 
     public Queen Queen() {return queen;}
+    public Tile Vide(){return vide;}
 
 }

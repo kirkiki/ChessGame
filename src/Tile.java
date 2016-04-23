@@ -6,4 +6,9 @@ import java.util.PrimitiveIterator;
 public class Tile extends Piece{
     public Tile(String name){super(name); setCouleur("");}
 
+    @Override
+    public boolean canMove(int ligneD, int colonneD, int ligneA, int colonneA) {
+        return false;
+    }
+
 }

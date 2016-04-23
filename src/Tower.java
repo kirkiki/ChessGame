@@ -6,4 +6,9 @@ public class Tower extends Piece {
         super(x, y, "T", couleur);
     }
     public Tower(String name){super(name);}
+
+    @Override
+    public boolean canMove(int ligneD, int colonneD, int ligneA, int colonneA) {
+        return !(colonneD != colonneA && ligneD != ligneA);
+    }
 }
